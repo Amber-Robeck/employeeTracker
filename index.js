@@ -26,6 +26,9 @@ const init = () => {
             switch (choices.name) {
                 case "View all departments":
                     console.log("this will be view departments")
+                    db.query('SELECT name FROM department', function (err, results) {
+                        console.log(results);
+                    });
                     break;
 
                 case "View all roles":
