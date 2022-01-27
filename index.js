@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
+cTable = require('console.table');
 
 
 const db = mysql.createConnection(
@@ -25,14 +26,22 @@ const init = () => {
             console.log(choices.name);
             switch (choices.name) {
                 case "View all departments":
-                    console.log("this will be view departments")
-                    db.query('SELECT name FROM department', function (err, results) {
-                        console.log(results);
+                    // console.log("this will be view departments")
+                    db.query('SELECT name AS Departments FROM department', function (err, results) {
+                        console.table(results);
                     });
+                    init();
                     break;
 
                 case "View all roles":
-                    console.log("this will be view roles");
+                    // console.log("this will be view roles");
+                    db.query('SELECT title AS Roles FROM role', (err, result) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        console.table(result);
+                    });
+                    init();
                     break;
                 case "View all employees":
                     console.log("this will be view employees");
