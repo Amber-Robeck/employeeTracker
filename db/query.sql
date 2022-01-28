@@ -45,3 +45,5 @@ FROM employee
 INNER JOIN role on role.id = employee.role_id 
 INNER JOIN department on department.id = role.department_id 
 left join employee m on employee.manager_id = m.id;
+
+

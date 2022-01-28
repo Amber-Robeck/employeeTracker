@@ -1,6 +1,8 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 cTable = require('console.table');
+const aEmploy = require("./helpers/addEmployee")
+
 
 const db = mysql.createConnection(
     {
@@ -58,14 +60,78 @@ const init = () => {
 
                 case "Add a department":
                     console.log("this will be add department");
+                    inquirer.prompt([
+                        {
+                            name: "name",
+                            type: "input",
+                            message: "What Department would you like to add?"
+                        }
+                    ]).then(function (res) {
+                        db.query(
+                            "INSERT INTO department SET ? ",
+                            {
+                                name: res.name
+
+                            },
+                            function (err) {
+                                if (err) throw err
+                                console.table(res);
+                                init();
+                            }
+                        )
+                    });
+
                     break;
 
                 case "Add a role":
                     console.log("this will be add a role");
+                    db.query("SELECT role.title AS Title, role.salary AS Salary FROM role", function (err, res) {
+                        inquirer.prompt([
+                            {
+                                name: "Title",
+                                type: "input",
+                                message: "What is the roles Title?"
+                            },
+                            {
+                                name: "Salary",
+                                type: "input",
+                                message: "What is the Salary?"
+
+                            },
+                            {
+                                name: "Department",
+                                type: "input",
+                                message: "What is the department id?"
+
+                            }
+                        ]).then(function (res) {
+                            db.query(
+                                "INSERT INTO role SET ?",
+                                {
+                                    title: res.Title,
+                                    salary: res.Salary,
+                                    department_id: res.Department
+                                },
+                                function (err) {
+                                    if (err) throw err
+                                    console.table(res);
+                                    init();
+                                }
+                            )
+
+                        });
+                    });
+
+
+
+                    // INSERT INTO role (title, salary, department_id)
+                    // VALUE ("New Role", 75000, 6);
+
                     break;
 
                 case "Add an employee":
                     console.log("this will be add an employee");
+
                     break;
 
                 case "Update an employee role":
