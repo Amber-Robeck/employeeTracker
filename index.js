@@ -26,7 +26,7 @@ const init = () => {
             switch (choices.name) {
                 case "View all departments":
                     // console.log("this will be view departments")
-                    db.query('SELECT name AS Departments FROM department', function (err, result) {
+                    db.query('SELECT * FROM department', function (err, result) {
                         if (err) {
                             console.log(err);
                         }
@@ -37,7 +37,7 @@ const init = () => {
 
                 case "View all roles":
                     // console.log("this will be view roles");
-                    db.query('SELECT title AS Roles FROM role', (err, result) => {
+                    db.query('SELECT role.title AS Position, role.id, department.name AS Department,  role.salary FROM role JOIN department ON department.id = role.department_id;', (err, result) => {
                         if (err) {
                             console.log(err);
                         }
@@ -46,14 +46,14 @@ const init = () => {
                     });
                     break;
                 case "View all employees":
-                    console.log("this will be view employees");
-                    db.query('SELECT first_name AS First, last_name AS Last FROM employee;', (err, result) => {
+                    // console.log("this will be view employees");
+                    db.query("SELECT employee.id, employee.first_name AS First, employee.last_name AS Last, role.title AS Position, role.salary AS Salary, department.name AS Department, CONCAT(m.first_name, ' ' , m.last_name) AS Manager FROM employee INNER JOIN role on role.id = employee.role_id INNER JOIN department on department.id = role.department_id left join employee m on employee.manager_id = m.id", (err, result) => {
                         if (err) {
                             console.log(err);
                         }
                         console.table(result);
+                        init();
                     });
-                    init();
                     break;
 
                 case "Add a department":
