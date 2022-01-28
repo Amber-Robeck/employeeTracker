@@ -8,7 +8,8 @@
  ## Description
 
     Welcome to my Employee tracker! This application was created with Node.js using the built in 
-    package Inquirer (for collecting user input). This
+    package Inquirer (for collecting user input). This application also uses mySQL and mySQL2 package
+    and is using console.table package to show tables in the command line! This
     application is ran from the back-end and does not have a deployed page however, 
     it can be ran on the command line!
 
@@ -48,7 +49,9 @@
 
     Here is a screen shot of tables created.
 
-![Screenshot](dist/assets/html.png "screenshot of html")
+![Screenshot](assets/cli.png "screenshot of cli")
+
+![Screenshot](assets/employee.png "screenshot of cli")
 
 
 
