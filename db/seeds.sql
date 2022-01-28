@@ -18,4 +18,6 @@ VALUE ("Payroll", 75000, 5),
 
 
 INSERT INTO employee (first_name, last_name, manager_id, role_id)
-VALUE ("Mark", "Stevens", NULL, 3);
+VALUE ("Mark", "Stevens", NULL, 3),
+("Greg", "Phillips", 1, 3),
+("John", "Douglas", 1, 3);
